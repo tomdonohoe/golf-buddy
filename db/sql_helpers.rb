@@ -121,3 +121,12 @@ def update_user_by_id id, username, email
     }
     run_sql query, [username, email, id]
 end
+
+
+def add_total_score_to_round round_id
+    total_score_query = "SELECT SUM(score) as total FROM scores WHERE round_id = $1"
+    total_score = run_sql total_score_query, [round_id]
+
+    query = "UPDATE rounds SET total_score = $1 WHERE id = $2"
+    run_sql query, [total_score[0]['total'], round_id]
+end

@@ -134,4 +134,5 @@ post '/scores' do
   round_id = params['round_id']
 
   create_18_new_scores course_id, user_id, round_id, params
+  add_total_score_to_round round_id
 end
