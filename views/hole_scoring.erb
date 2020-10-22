@@ -1,0 +1,15 @@
+<h1>Enter hole scores for <%= course['name'] %></h1>
+<% user = current_user_details%>
+
+<form action="/scores" method="post">
+    <input type="hidden" name="course_id" value="<%= course['id'] %>">
+    <input type="hidden" name="round_id" value="<%= round_id %>">
+    <input type="hidden" name="user_id" value="<%= user['id'] %>">
+
+    <% 18.times do |i| %>
+    <label>Hole <%= i + 1 %> Score:</label>
+    <input type="number" name="hole_<%= i + 1 %>_score" value="4">
+    <br>
+    <% end %>
+    <button>submit scorecard</button>
+</form>

@@ -1,0 +1,11 @@
+<h1><%= course['name'] %></h1>
+
+<p>Details:</p>
+<ul>
+    <li>Par: <%= course['par'] %></li>
+    <li>Number of holes: <%= course['num_holes'] %></li>
+</ul>
+
+<form method="post" action="/round?course_id=<%= course['id']%>">
+    <button>Start round at <%= course['name'] %></button>
+</form>

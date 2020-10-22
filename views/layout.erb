@@ -7,7 +7,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <img src="/images/golf-buddy-logo.png" alt="">
+  <a href="/">
+   <img src="/images/golf-buddy-logo.png" alt="">
+  </a>
+  <nav>
+    <ul>
+      <li><a href="/user/new">signup</a></li>
+      <li><a href="/session/new">login</a></li>
+      <li>
+        <form action="/session" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button>logout</button>
+        </form>
+      </li>
+    </ul>
+  </nav>
   <%= yield %>
 
 </body>

@@ -1,0 +1,27 @@
+<h1>Start round</h1>
+
+<h2>Play new course</h2>
+<form action="/course" method="post">
+    <label>Course name:</label>
+    <input type="text" name="course_name">
+
+    <label>Course par:</label>
+    <input type="text" name="course_par">
+
+    <label>Number of holes:</label>
+    <input type="text" name="num_holes">
+
+    <button>Start</button>
+</form>
+
+<h2>Play course again</h2>
+
+<ul>
+    <%courses.each do |course| %>
+    <li>
+        <form action="/round?course_id=<%= course['id'] %>" method="post">
+            <button><%= course['name']%></button>
+        </form>   
+    </li>
+    <% end %>
+</ul>
