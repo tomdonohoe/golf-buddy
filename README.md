@@ -1,8 +1,7 @@
 # Golf Buddy
+![Golf Buddy Logo](/public/images/golf-buddy-logo.png)
 
 Golf buddy is a web app that keeps track of your scorecard and analyses your performance.
-
-Similar to strava but for golf.
 
 ## Features
 
