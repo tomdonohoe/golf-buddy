@@ -1,13 +1,11 @@
-<h1>Login to account</h1>
+<section class="form-grid">
+    <h1>Login to account</h1>
+    <form class="form-grid-form" action="/session" method="post">
+        <input type="email" placeholder="enter email" name="email">
 
-<form action="/session" method="post">
-    <label>Email:</label>
-    <input type="email" name="email">
+        <input type="password" placeholder="enter password" name="password">
 
-    <label>Password:</label>
-    <input type="password" name="password">
-
-    <button class="btn">Login</button>
-</form>
-
-<p>Don't have account? <a href="/user/new">Signup here.</a></p>
+        <button class="btn">Login</button>
+    </form>
+    <p>Don't have account? <a href="/user/new">Signup here.</a></p>
+</section>

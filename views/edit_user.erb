@@ -1,13 +1,16 @@
+<section class="form-grid">
 <h1>Edit your account</h1>
 
-<form action="/user/<%= user['id'] %>" method="post">
-    <input type="hidden" name="_method" value="patch">
+    <form class="form-grid-form" action="/user/<%= user['id'] %>" method="post">
+        <input type="hidden" name="_method" value="patch">
 
-    <label>Username:</label>
-    <input type="text" name="username" value="<%= user['username'] %>">
+        <label>Username:</label>
+        <input type="text" name="username" placeholder="enter username" value="<%= user['username'] %>">
 
-    <label>Email:</label>
-    <input type="email" name="email" value="<%= user['email'] %>">
+        <label>Email:</label>
+        <input type="email" name="email" placeholder="enter email" value="<%= user['email'] %>">
 
-    <button>Update</button>
-</form>
+        <button class="btn">Update</button>
+    </form>
+
+</section>

@@ -211,6 +211,17 @@ def avg_total_score_by_user_id id
 end
 
 
+def min_total_score_by_user_id id
+    query = %{
+        SELECT MIN(total_score)  AS min_total_score
+          FROM rounds
+         WHERE user_id = $1;       
+    }
+    result = run_sql query, [id]
+    result.first
+end
+
+
 def avg_total_score_per_course_by_user_id id
     query = %{
         SELECT c.name AS course_name,

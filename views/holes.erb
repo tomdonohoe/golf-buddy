@@ -1,12 +1,15 @@
-<h1>Enter hole information for <%= course['name'] %></h1>
+<section class="center-with-grid">
+    <h1>Enter hole information for <%= course['name'] %></h1>
 
-<form action="/holes" method="post">
-    <input type="hidden" name="course_id" value="<%= course['id'] %>">
+    <form class="center-with-grid" action="/holes" method="post">
+        <input type="hidden" name="course_id" value="<%= course['id'] %>">
 
-    <% 18.times do |i| %>
-    <label>Hole <%= i + 1 %> Par:</label>
-    <input type="number" name="hole_<%= i + 1 %>_par">
-    <br>
-    <% end %>
-    <button>submit</button>
-</form>
+        <% 18.times do |i| %>
+        <div class="edit-hole">
+            <label>Hole <%= i + 1 %> Par:</label>
+            <input type="number" name="hole_<%= i + 1 %>_par">
+        </div>
+        <% end %>
+        <button class="btn">submit</button>
+    </form>
+</section>

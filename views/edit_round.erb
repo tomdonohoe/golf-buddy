@@ -1,13 +1,20 @@
-<h1>Edit hole scores for <%= round_details.first['course_name'] %> on <%= round_details.first['date'] %></h1>
-<% user = current_user_details%>
+<section class="center-with-grid">
 
-<form action="/scores" method="post">
-    <input type="hidden" name="_method" value="patch">
-    <input type="hidden" name="round_id" value="<%= round_details.first['round_id'] %>">
-    <% round_details.each do |hole|%>
-    <label>Hole <%= hole['hole_number'] %> Score:</label>
-    <input type="number" name="<%= hole['score_id'] %>" value="<%= hole['user_score'] %>">
-    <br>
-    <% end %>
-    <button>edit scorecard</button>
-</form>
+    <h1>Edit hole scores for <%= round_details.first['course_name'] %> on <%= round_details.first['date'] %></h1>
+    
+    <% user = current_user_details%>
+
+    <form class="center-with-grid" action="/scores" method="post">
+        <input type="hidden" name="_method" value="patch">
+        <input type="hidden" name="round_id" value="<%= round_details.first['round_id'] %>">
+
+        <% round_details.each do |hole|%>
+        <div class="edit-hole">
+            <label>Hole <%= hole['hole_number'] %> Score:</label>
+            <input type="number" name="<%= hole['score_id'] %>" value="<%= hole['user_score'] %>">
+        </div>
+        <% end %>
+        <button class="btn">edit scorecard</button>
+        </div>
+    </form>
+</section>

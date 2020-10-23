@@ -8,8 +8,14 @@ body {
     color: #073B4C;
 }
 
+h1, h2 {
+    text-decoration: underline;
+    text-decoration-color: #06D6A0;
+}
+
 button {
     border: none;
+    display: block;
 }
 
 a {
@@ -20,10 +26,15 @@ a:hover {
     color: #EF476F;
 }
 
+.center-with-grid {
+    display: grid;
+    justify-items: center;
+}
+
 .grid {
     display: grid;
     grid-template-rows: 1fr 4fr;
-    gap: 30px;
+    gap: 10px;
     width: 70%;
     margin: auto;
     justify-items: center;
@@ -32,7 +43,7 @@ a:hover {
 
 header {
     display: grid;
-    grid-template-rows: 3fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
@@ -50,7 +61,7 @@ header {
     align-items: center;
 }
 
-.menu > a, button {
+.menu a, .menu button {
     font-size: 16px;
     font-weight: normal;
     text-decoration: none;
@@ -58,27 +69,102 @@ header {
     color: #FFF;
     background-color: #06D6A0;
     padding: 20px 40px;
+    border-radius: 5px;
 
 }
 
-.menu > a:hover, button:hover {
+.menu a:hover, .menu button:hover {
     background-color: #EF476F;
 }
 
 .logo img {
-    height: 200px;
+    height: 150px;
     width: auto;
 }
 
-.btn {
-    font-size: 12px;
+.btn, .btn button {
+    font-size: 14px;
     font-weight: normal;
+    text-align: center;
     text-decoration: none;
     cursor: pointer;
     color: #FFF;
-    background-color: #06D6A0;
+    background-color: #118AB2;
     padding: 10px 20px; 
+    border-radius: 5px;
 }
+
+.btn:hover {
+    color: #fff;
+    background-color: #073B4C;   
+}
+
+/* Forms: signup, login, edit user */
+.form-grid {
+    display: grid;
+    justify-items: center;
+}
+
+.form-grid-form input, .form-grid-form select {
+    display: block;
+    padding: 6px;
+    margin-bottom: 5px;
+}
+
+.form-grid-form .btn {
+    width: 100%;
+}
+
+/* User profile */
+.user-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+/* Round search results */
+.table-round {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+.table-round td, .table-round th {
+    border: 1px solid #ddd;
+    padding: 6px;
+}
+  
+.table-round th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    background-color: #fff;
+}
+
+/* Scorecard */
+.scorecard-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10px;
+}
+
+/* Edit Scorecard */
+.edit-hole {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.edit-hole label {
+    text-align: right;
+}
+
+.edit-hole input {
+    width: 40%;
+    padding: 3px;
+}
+
 /* Colors */
 
 .red {

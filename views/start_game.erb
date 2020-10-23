@@ -1,27 +1,30 @@
-<h1>Start round</h1>
+<section class="center-with-grid">
+    <h1>Start round</h1>
+    <p>Play a course again or a new course to start round.</p>
+</section>
 
-<h2>Play new course</h2>
-<form action="/course" method="post">
-    <label>Course name:</label>
-    <input type="text" name="course_name">
+<section class="form-grid center-with-grid">
+    <h2>Play course again</h2>
 
-    <label>Course par:</label>
-    <input type="text" name="course_par">
+    <form class="form-grid-form" action="/round" method="post">
+        <select name="course_id">
+        <%courses.each do |course| %>
+            <option value="<%= course['id']%>"><%= course['name']%></option>
+        <% end %>
+        </select>
+        <button class="btn">start</button>
+    </form>   
+</section>
 
-    <label>Number of holes:</label>
-    <input type="text" name="num_holes">
+<section class="form-grid">
+    <h2>Play new course</h2>
+    <form class="form-grid-form" action="/course" method="post">
+        <input type="text" placeholder="enter course name" name="course_name">
 
-    <button>Start</button>
-</form>
+        <input type="text" placeholder="enter course par" name="course_par">
 
-<h2>Play course again</h2>
+        <input type="text" placeholder="enter number of holes" name="num_holes">
 
-<ul>
-    <%courses.each do |course| %>
-    <li>
-        <form action="/round?course_id=<%= course['id'] %>" method="post">
-            <button><%= course['name']%></button>
-        </form>   
-    </li>
-    <% end %>
-</ul>
+        <button class="btn">Start</button>
+    </form>
+</section>

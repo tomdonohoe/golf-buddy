@@ -21,12 +21,14 @@ end
 get '/user/:id' do
   user = current_user_details
   avg_score = avg_total_score_by_user_id user['id']
+  min_score = min_total_score_by_user_id user['id']
   avg_score_per_course = avg_total_score_per_course_by_user_id user['id']
   avg_score_per_par = avg_score_per_hole_par_by_user_id user['id']
 
   erb :user_profile, locals: {
     user: user,
     avg_score: avg_score['avg_total_score'],
+    min_score: min_score['min_total_score'],
     avg_score_per_course: avg_score_per_course,
     avg_score_per_par: avg_score_per_par
   }
