@@ -1,0 +1,22 @@
+<h1>Previous rounds</h1>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Course</th>
+        <th>Score</th>
+        <th>+/- Course Par</th>
+        <th>View</th>
+    </tr>
+    <% rounds.each do |round|%>
+    <tr>
+        <th><%= round['date'] %></th>
+        <th><%= round['name'] %></th>
+        <th><%= round['total_score'] %></th>
+        <th><%= round['total_score'].to_i - round['par'].to_i %></th>
+        <th><a href="/round/<%= round['round_id'] %>">view round</a></th>       
+    </tr>
+
+    <% end %>
+
+</table>

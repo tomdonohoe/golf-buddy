@@ -1,8 +1,11 @@
 <h1><%= user['username'] %>'s profile</h1>
+<h2>Round statistics</h2>
 
+<h2>Options</h2>
 <ul>
     <li><a href="/user/<%= user['id'] %>/edit">Edit account</a></li>
     <li><a href="/start-game">start new round</a></li>
+    <li><a href="/round">view previous rounds</a></li>
     <li>
         <form action="/user/<%= user['id'] %>" method="post">
             <input type="hidden" name="_method" value="delete">

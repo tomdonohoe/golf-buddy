@@ -86,6 +86,21 @@ end
 
 
 # Rounds
+get '/round' do
+  user = current_user_details
+  rounds = get_all_rounds_by_user_id user['id']
+
+  erb :rounds, locals: {rounds: rounds}
+end
+
+get '/round/:id' do
+  user = current_user_details
+  round_details = get_round_by_user_id_round_id user['id'], params['id']
+
+  erb :round, locals: {round_details: round_details}
+end
+
+
 post '/round' do
   course_id = params['course_id']
   user = current_user_details 
@@ -95,12 +110,27 @@ post '/round' do
   redirect "/scorecard?course_id=#{course_id}&round_id=#{round_id}"
 end
 
+
+patch '/round/:id' do
+  user = current_user_details
+  round_details = get_round_by_user_id_round_id user['id'], params['id']
+
+  erb :edit_round, locals: {round_details: round_details}
+end
+
+
+delete '/round/:id' do
+  user = current_user_details
+  delete_round_by_id params['id']
+  redirect "/user/#{user['id']}"
+end
+
+
 # Courses
 get '/course' do
   course = find_course_by_id params['course_id']
-  round_id = find_latest_round_id
 
-  erb :course, locals: {course: course, round_id: round_id}
+  erb :course, locals: {course: course}
 end
 
 post '/course' do
@@ -135,4 +165,15 @@ post '/scores' do
 
   create_18_new_scores course_id, user_id, round_id, params
   add_total_score_to_round round_id
+  redirect "/user/#{user_id}"
+end
+
+
+patch '/scores' do
+  user = current_user_details
+  round_id = params['round_id']
+  update_all_scores params
+  add_total_score_to_round round_id
+
+  redirect "/user/#{user['id']}"
 end

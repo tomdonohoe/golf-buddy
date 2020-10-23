@@ -15,6 +15,51 @@ def get_all_courses
 end
 
 
+def get_all_rounds_by_user_id user_id
+    query = %{
+        SELECT r.id AS round_id,
+               r.created_at AS date,
+               r.total_score,
+               r.course_id,
+               c.name,
+               c.par,
+               c.num_holes 
+          FROM rounds as r
+          LEFT JOIN courses as c
+            ON r.course_id = c.id
+         WHERE user_id = $1;
+    }
+    run_sql query, [user_id]
+end
+
+
+def get_round_by_user_id_round_id user_id, round_id
+    query = %{
+        SELECT r.id AS round_id,
+               r.created_at AS date,
+               r.total_score,
+               r.user_id,
+               r.course_id,
+               c.name AS course_name,
+               c.par AS course_par,
+               c.num_holes,
+               h.number AS hole_number,
+               h.par AS hole_par,
+               s.id AS score_id,
+               s.score AS user_score
+          FROM rounds AS r
+          LEFT JOIN courses AS c
+            ON r.course_id = c.id
+          LEFT JOIN holes AS h
+            ON c.id = h.course_id
+          LEFT JOIN scores AS s
+            ON s.round_id = r.id AND s.hole_id = h.id
+         WHERE r.user_id = $1 and r.id = $2;
+    }
+    result = run_sql query, [user_id, round_id]
+end
+
+
 def create_new_user username, email, password_digest
     query = "INSERT INTO users (username, email, password_digest) VALUES ($1, $2, $3);"
     run_sql query, [username, email, password_digest]
@@ -113,6 +158,14 @@ def delete_user_by_id id
 end
 
 
+def delete_round_by_id id
+    query_rounds = "DELETE FROM rounds WHERE id = $1;"
+    query_scores = "DELETE FROM scores WHERE round_id = $1;"
+    run_sql query_rounds, [id]
+    run_sql query_scores, [id]
+end
+
+
 def update_user_by_id id, username, email
     query = %{
         UPDATE users
@@ -123,6 +176,21 @@ def update_user_by_id id, username, email
 end
 
 
+def update_score_by_id score, score_id
+    query = "UPDATE scores SET score = $1 WHERE id = $2;"
+    run_sql query, [score, score_id]   
+end
+
+
+def update_all_scores params
+    params.each do |score_id, new_score|
+        unless score_id == "_method" || score_id == "round_id"
+            update_score_by_id new_score, score_id
+        end
+    end
+end
+
+
 def add_total_score_to_round round_id
     total_score_query = "SELECT SUM(score) as total FROM scores WHERE round_id = $1"
     total_score = run_sql total_score_query, [round_id]
@@ -130,3 +198,45 @@ def add_total_score_to_round round_id
     query = "UPDATE rounds SET total_score = $1 WHERE id = $2"
     run_sql query, [total_score[0]['total'], round_id]
 end
+
+
+def avg_total_score_by_user_id id
+    query = %{
+        SELECT ROUND(AVG(total_score))  AS avg_total_score
+          FROM rounds
+         WHERE user_id = $1;       
+    }
+    result = run_sql query, [id]
+    result.first
+end
+
+
+def avg_total_score_per_course_by_user_id id
+    query = %{
+        SELECT c.name AS course_name,
+               ROUND(AVG(r.total_score)) AS avg_total_score
+          FROM rounds AS r
+          LEFT JOIN courses AS c
+            ON r.course_id = c.id
+         WHERE r.user_id = $1
+         GROUP BY course_name;      
+    }
+    run_sql query, [id]
+end   
+
+
+def avg_score_per_hole_par_by_user_id id
+    query = %{
+        SELECT h.par,
+               ROUND(AVG(s.score)) AS avg_score
+          FROM rounds AS r
+          LEFT JOIN scores AS s
+            ON r.id = s.round_id
+          LEFT JOIN holes AS h
+            ON s.hole_id = h.id
+         WHERE r.user_id = $1
+         GROUP BY h.par
+         ORDER BY h.par;    
+    }
+    run_sql query, [id]
+end  

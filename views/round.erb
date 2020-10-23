@@ -1,0 +1,33 @@
+<h1>Round at <%= round_details.first['course_name'] %> on <%= round_details.first['date'] %></h1>
+
+<table>
+    <tr>
+        <th>Hole Number</th>
+        <th>Course Par</th>
+        <th>Score</th>
+        <th>+/- Par</th>
+    </tr>
+    <% round_details.each do |hole|%>
+    <tr>
+        <th><%= hole['hole_number'] %></th>
+        <th><%= hole['hole_par'] %></th>
+        <th><%= hole['user_score'] %></th>
+        <th><%= hole['user_score'].to_i - hole['hole_par'].to_i %></th>     
+    </tr>
+
+    <% end %>
+
+</table>
+
+<form action="/round/<%= round_details.first['round_id'] %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button>delete round</button>
+</form>
+<br>
+<br>
+<form action="/round/<%= round_details.first['round_id'] %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <button>edit round</button>
+</form>
+
+
