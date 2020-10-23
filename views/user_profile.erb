@@ -1,6 +1,23 @@
 <h1><%= user['username'] %>'s profile</h1>
 <h2>Round statistics</h2>
 
+<ul>
+    <li>Avg total score: <%= avg_score %></li>
+    <li>Avg score by course:
+        <ul>
+            <% avg_score_per_course.each do |course| %>
+            <li><%= course['course_name'] %>: <%= course['avg_total_score'] %></li>
+            <% end %>
+        </ul>
+    </li>
+    <li>Avg score by par:
+        <ul>
+            <% avg_score_per_par.each do |par| %>
+            <li>Par <%= par['par'] %>: <%= par['avg_score'] %></li>
+            <% end %>
+        </ul></li>
+</ul>
+
 <h2>Options</h2>
 <ul>
     <li><a href="/user/<%= user['id'] %>/edit">Edit account</a></li>
