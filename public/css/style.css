@@ -1,4 +1,122 @@
-img {
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #073B4C;
+}
+
+button {
+    border: none;
+}
+
+a {
+    color: #06D6A0;
+}
+
+a:hover {
+    color: #EF476F;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    gap: 30px;
+    width: 70%;
+    margin: auto;
+    justify-items: center;
+    background-color: #fff;
+}
+
+header {
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    gap: 20px;
+}
+
+.logo {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+}
+
+.menu > a, button {
+    font-size: 16px;
+    font-weight: normal;
+    text-decoration: none;
+    cursor: pointer;
+    color: #FFF;
+    background-color: #06D6A0;
+    padding: 20px 40px;
+
+}
+
+.menu > a:hover, button:hover {
+    background-color: #EF476F;
+}
+
+.logo img {
     height: 200px;
     width: auto;
+}
+
+.btn {
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: none;
+    cursor: pointer;
+    color: #FFF;
+    background-color: #06D6A0;
+    padding: 10px 20px; 
+}
+/* Colors */
+
+.red {
+    color: #EF476F;
+}
+
+.red-bgc {
+    background-color: #EF476F;
+}
+
+.yellow {
+    color: #FFD166;
+}
+
+.yellow-bgc {
+    background-color: #FFD166;
+}
+
+.green {
+    color: #06D6A0;
+}
+
+.green-bgc {
+    background-color: #06D6A0;
+}
+
+.blue {
+    color: #118AB2;
+}
+
+.blue-bgc {
+    background-color: #118AB2;
+}
+
+.midnight {
+    color: #073B4C;
+}
+
+.midnight-bgc {
+    background-color: #073B4C;
 }

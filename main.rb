@@ -94,13 +94,13 @@ get '/scorecard' do
 end
 
 
-# Rounds
 get '/round' do
   user = current_user_details
   rounds = get_all_rounds_by_user_id user['id']
 
   erb :rounds, locals: {rounds: rounds}
 end
+
 
 get '/round/:id' do
   user = current_user_details
@@ -135,12 +135,12 @@ delete '/round/:id' do
 end
 
 
-# Courses
 get '/course' do
   course = find_course_by_id params['course_id']
 
   erb :course, locals: {course: course}
 end
+
 
 post '/course' do
   course = find_course_by_name params['course_name']
@@ -154,11 +154,12 @@ post '/course' do
   end
 end
 
-# Holes
+
 get '/holes' do
   course = find_course_by_id params['course_id']
   erb :holes, locals: {course: course}
 end
+
 
 post '/holes' do
   course_id = params['course_id']
@@ -166,7 +167,7 @@ post '/holes' do
   redirect "/course?course_id=#{course_id}"
 end
 
-# Scores
+
 post '/scores' do
   course_id = params['course_id']
   user_id = params['user_id']
