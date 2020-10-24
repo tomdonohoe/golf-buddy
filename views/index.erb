@@ -13,7 +13,7 @@
         <section class="post-meta">
 
             <div class="user">
-                Shared by <%= post['username'].capitalize %>
+                Posted by <a href="/profile/<%= post['user_id'] %>"><%= post['username'].capitalize %></a>
             </div>
 
             <div class="round-date">

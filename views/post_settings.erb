@@ -1,0 +1,28 @@
+<section class="center-with-grid">
+    <h1>Your posts</h1>
+
+    <table class="table-round">
+        <tr>
+            <th>Course</th>
+            <th>Score</th>
+            <th>Date</th>
+            <th>Delete</th>
+        </tr>
+        <% posts.each do |post| %>
+        <tr>
+            <th><%= post['course_name'].capitalize %></th>
+            <th><%= post['user_total_score'] %></th>
+            <th><%= post['round_date'] %></th>
+            <th>
+                <form action="/posts?id=<%= post['id'] %>" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <button class="btn">delete</button>
+                </form>
+            </th>       
+        </tr>
+
+        <% end %>
+
+    </table>
+</section>
+ 

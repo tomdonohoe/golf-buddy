@@ -170,8 +170,6 @@ header {
 }
 
 /*  Posts  */
-
-
 .post {
     display: grid;
     grid-template-rows: 1fr 1fr;

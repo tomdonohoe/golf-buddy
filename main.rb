@@ -217,6 +217,11 @@ delete '/friends' do
   redirect back
 end
 
+get '/posts/:user_id' do
+  posts = find_all_posts_by_user_id params['user_id']
+
+  erb :post_settings, locals: {posts: posts}
+end
 
 
 post '/posts' do
@@ -230,4 +235,11 @@ post '/posts' do
   create_new_post user_id, username, round_date, course_name, course_par, user_total_score
 
   redirect "/user/#{user_id}"
+end
+
+
+delete '/posts' do
+  user = current_user_details
+  delete_post_by_id params['id']
+  redirect "/user/#{user['id']}"
 end

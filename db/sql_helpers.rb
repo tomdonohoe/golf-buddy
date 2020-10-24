@@ -225,6 +225,12 @@ def delete_friend user_id, friend_id
 end
 
 
+def delete_post_by_id post_id
+    query = "DELETE FROM posts WHERE id = $1;"
+    run_sql query, [post_id]   
+end
+
+
 def update_user_by_id id, username, email
     query = %{
         UPDATE users
