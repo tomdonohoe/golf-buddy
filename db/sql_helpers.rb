@@ -110,6 +110,35 @@ def create_18_new_scores course_id, user_id, round_id, params
 end
 
 
+def create_friend logged_in_user_id, friend_user_id
+    query = "INSERT INTO friends (user_id, friend_id) VALUES ($1, $2);"
+    run_sql query, [logged_in_user_id, friend_user_id]
+end
+
+
+def create_new_post user_id, username, round_date, course_name, course_par, user_total_score
+    query = %{
+        INSERT INTO posts (
+            user_id, 
+            username, 
+            round_date, 
+            course_name, 
+            course_par, 
+            user_total_score
+        )
+        VALUES (
+            $1, 
+            $2, 
+            $3, 
+            $4,
+            $5,
+            $6
+        );
+    }
+    run_sql query, [user_id, username, round_date, course_name, course_par, user_total_score]
+end
+
+
 def find_user_by_email email
     query = "SELECT * FROM users WHERE email = $1;"
     result = run_sql query, [email]
@@ -152,6 +181,31 @@ def find_latest_round_id
 end
 
 
+def find_friend_ids_by_user_id user_id
+    query = "SELECT friend_id FROM friends WHERE user_id = $1;"
+    run_sql query, [user_id]
+end
+
+
+def find_friends_by_id current_user_id, friend_id
+    query = "SELECT * FROM friends WHERE user_id = $1 AND friend_id = $2;"
+    run_sql query, [current_user_id, friend_id]
+end   
+
+
+def find_all_posts_by_user_id user_id
+    query = "SELECT * FROM posts WHERE user_id = $1;"
+    run_sql query, [user_id]
+end
+
+
+def find_all_posts_by_friend_ids friend_ids
+    # format of friend_ids must be 
+    query = "SELECT * FROM multiple_users_ids(VARIADIC $1::int[]);"
+    run_sql query, [friend_ids]
+end
+
+
 def delete_user_by_id id
     query = "DELETE FROM users WHERE id = $1;"
     result = run_sql query, [id]
@@ -163,6 +217,11 @@ def delete_round_by_id id
     query_scores = "DELETE FROM scores WHERE round_id = $1;"
     run_sql query_rounds, [id]
     run_sql query_scores, [id]
+end
+
+def delete_friend user_id, friend_id
+    query = "DELETE FROM friends WHERE user_id = $1 AND friend_id = $2"
+    run_sql query, [user_id, friend_id]
 end
 
 

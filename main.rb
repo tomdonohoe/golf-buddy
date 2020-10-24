@@ -9,7 +9,12 @@ enable :sessions
 
 
 get '/' do
-  erb :index
+  user = current_user_details
+  if logged_in?
+    posts = get_all_posts_of_users_friends
+  end
+
+  erb :index, locals: {user: user, posts: posts}
 end
 
 
@@ -108,7 +113,7 @@ get '/round/:id' do
   user = current_user_details
   round_details = get_round_by_user_id_round_id user['id'], params['id']
 
-  erb :round, locals: {round_details: round_details}
+  erb :round, locals: {round_details: round_details, user: user}
 end
 
 
@@ -188,4 +193,41 @@ patch '/scores' do
   add_total_score_to_round round_id
 
   redirect "/user/#{user['id']}"
+end
+
+
+get '/profile/:id' do
+  user = find_user_by_id params['id']
+  posts = find_all_posts_by_user_id params['id']
+
+  erb :public_profile, locals: {user: user, posts: posts}
+end
+
+
+post '/friends' do
+  user = current_user_details
+  create_friend user['id'], params['friend_id']
+  redirect back
+end
+
+
+delete '/friends' do
+  user = current_user_details
+  delete_friend user['id'], params['friend_id']
+  redirect back
+end
+
+
+
+post '/posts' do
+  user_id = params['user_id']
+  username = params['username']
+  round_date = params['round_date']
+  course_name = params['course_name']
+  course_par = params['course_par']
+  user_total_score = params['user_total_score']
+
+  create_new_post user_id, username, round_date, course_name, course_par, user_total_score
+
+  redirect "/user/#{user_id}"
 end

@@ -23,13 +23,23 @@
 </section>
 
 <section class="scorecard-options center-with-grid">
-    <form action="/round/<%= round_details.first['round_id'] %>" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <button class="btn">delete round</button>
+
+    <form action="/posts?user_id=<%= user['id'] %>&username=<%= user['username']%>" method="post">
+        <input type="hidden" name="round_date" value="<%= round_details.first['date'] %>">
+        <input type="hidden" name="course_name" value="<%= round_details.first['course_name'] %>">
+        <input type="hidden" name="course_par" value="<%= round_details.first['course_par'] %>">
+        <input type="hidden" name="user_total_score" value="<%= round_details.first['total_score'] %>">
+        <button class="btn">share</button>
     </form>
+
     <form action="/round/<%= round_details.first['round_id'] %>" method="post">
         <input type="hidden" name="_method" value="patch">
-        <button class="btn">edit round</button>
+        <button class="btn">edit</button>
+    </form>
+
+    <form action="/round/<%= round_details.first['round_id'] %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button class="btn">delete</button>
     </form>
 </section>
 

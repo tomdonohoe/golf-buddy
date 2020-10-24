@@ -8,6 +8,10 @@ body {
     color: #073B4C;
 }
 
+main {
+    margin-bottom: 50px;
+}
+
 h1, h2 {
     text-decoration: underline;
     text-decoration-color: #06D6A0;
@@ -143,7 +147,7 @@ header {
 /* Scorecard */
 .scorecard-options {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     margin-top: 10px;
 }
 
@@ -164,6 +168,36 @@ header {
     width: 40%;
     padding: 3px;
 }
+
+/*  Posts  */
+
+
+.post {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    border: 2px solid #06D6A0;
+    margin-bottom: 20px;
+}
+
+.post-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;   
+}
+
+.post-round-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;    
+}
+
+
+
+
+
+
+
+
 
 /* Colors */
 

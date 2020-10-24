@@ -1,11 +1,24 @@
-<p>Welcome to Golf Buddy, your scorecard app.</p>
+<section class="center-with-grid">
 
+<h1><%= user['username'].capitalize %>'s Profile</h1>
 
-<% if logged_in? %>
+<% unless current_user_details['id'] == user['id'] %>
+    <% if is_current_user_already_following? user['id'] %>
+    <form action="/friends?friend_id=<%= user['id'] %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button class="btn">Unfollow</button>
+    </form>
+    <% else %>
+    <form action="/friends?friend_id=<%= user['id'] %>" method="post">
+        <button class="btn">Follow</button>
+    </form>
+    <% end %>
+<% end %>
+
 
 <section class="posts center-with-grid">
 
-    <h2>Recent posts from friends:</h2>
+    <h2>Recent Posts:</h2>
     <% posts.each do |post| %>
 
     <article class="post"> 
@@ -43,5 +56,3 @@
     <% end %>
 
 </section>
-
-  <% end %>
