@@ -1,5 +1,7 @@
 <h1>Round at <%= round_details.first['course_name'] %> on <%= round_details.first['date'] %></h1>
 
+<p>Your total score was <%= round_details.first['total_score'] %> (course par of <%= round_details.first['course_par'] %>)</p>
+
 
 <section class="scorecard-v2">
     <div class="scorecard-grid">
@@ -45,17 +47,23 @@
             </div>
         </div>
 
-        <div class="scorecard-row border-bottom">
+        <div class="scorecard-row scorecard-row-score">
             <div class="scorecard-label">
                 Score
             </div>
 
-            <div class="scorecard-data">
+            <div class="scorecard-data scorecard-data-scores">
             <% round_details.each do |hole|%>
                 <% if hole['hole_number'].to_i < 10 %>
-                <div class="scorecard-data-item">
-                    <%= hole['user_score'].to_i %>
-                </div>
+                    <% if hole['hole_par'].to_i ==  hole['user_score'].to_i %>   
+                    <div class="scorecard-data-item scorecard-par">
+                        <%= hole['user_score'].to_i %>
+                    </div>
+                    <% else %>
+                    <div class="scorecard-data-item">
+                        <%= hole['user_score'].to_i %>
+                    </div>
+                    <% end %>
                 <% end %>
             <% end %>                
             </div>
@@ -111,12 +119,12 @@
             </div>
         </div>
 
-        <div class="scorecard-row border-bottom">
+        <div class="scorecard-row scorecard-row-score">
             <div class="scorecard-label">
                 Score
             </div>
 
-            <div class="scorecard-data">
+            <div class="scorecard-data scorecard-data-scores">
             <% round_details.each do |hole|%>
                 <% if hole['hole_number'].to_i > 9 %>
                 <div class="scorecard-data-item">
