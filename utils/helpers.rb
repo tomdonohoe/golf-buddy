@@ -36,13 +36,3 @@ def get_all_posts_of_users_friends
     friend_ids_string = "{#{friend_ids.join(',')}}"
     find_all_posts_by_friend_ids friend_ids_string
 end
-
-
-def get_chart_data_total_score_date user_id
-    result = chart__get_round_date_and_score_by_user_id user_id
-    new_hash = {}
-    result.each_with_index do |hash|
-        new_hash[hash['date']] = hash['total_score']
-    end
-    new_hash
-end
