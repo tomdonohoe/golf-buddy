@@ -192,7 +192,8 @@ end
 
 def find_all_posts_by_user_id user_id
     query = %{
-        SELECT p.user_id,
+        SELECT p.id,
+               p.user_id,
                p.round_id,
                u.username,
                r.created_at AS round_date,
