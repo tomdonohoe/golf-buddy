@@ -219,10 +219,10 @@ header {
 
 
 /*  Posts  */
+
 .post {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 20px;
+    grid-template-rows: 1fr 2fr 2fr;
     padding: 20px;
     border: 2px solid #06D6A0;
     margin-bottom: 20px;
@@ -231,6 +231,40 @@ header {
 .post-meta {
     display: grid;
     grid-template-columns: 1fr 1fr;   
+    margin-bottom: 10px;
+}
+
+.post-details-labels {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.post-details-data {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.post-details-label, .post-details-data-point {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.post-details-label {
+    border-bottom: 1px solid #ddd ;
+}
+
+.post-details-label,  .post-details-data-point {
+    border-right: 1px solid #ddd;
+}
+
+.post-details-label:last-child, .post-details-data-point:last-child {
+    border-right: none;
+}
+
+.date {
+    color:gray;
+    font-size: 0.9rem;
 }
 
 .post-round-details {

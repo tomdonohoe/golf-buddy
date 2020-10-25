@@ -2,46 +2,43 @@
 
 
 <% if logged_in? %>
-
-<section class="posts center-with-grid">
-
+<section class="posts">
     <h2>Recent posts from friends:</h2>
     <% posts.each do |post| %>
-
-    <article class="post"> 
-
+    <article class="post">
         <section class="post-meta">
-
             <div class="user">
-                Posted by <a href="/profile/<%= post['user_id'] %>"><%= post['username'].capitalize %></a>
+                Player: <a href="/profile/<%= post['user_id'] %>"><%= post['username'].capitalize %></a>
             </div>
-
-            <div class="round-date">
-                Played on <%= post['round_date'] %>
+            <div class="date">
+                <%= post['round_date'] %>
+            </div>
+        </section>
+        <section class="post-details-labels">
+            <% score_diff_par = post['user_total_score'].to_i - post['course_par'].to_i %>
+            <div class="post-details-label">Course</div>
+            <div class="post-details-label">Score</div>
+            <div class="post-details-label">Par</div>
+            <div class="post-details-label">+ / -</div>
+        
+        </section>
+        <section class="post-details-data">
+            <% score_diff_par = post['user_total_score'].to_i - post['course_par'].to_i %>
+            <div class="post-details-data-point">
+            <%= post['course_name'].capitalize %>
+            </div>
+            <div class="post-details-data-point">
+            <%= post['user_total_score'] %>
+            </div>
+            <div class="post-details-data-point">
+            <%= post['course_par'] %>
+            </div>
+            <div class="post-details-data-point">
+            <%= score_diff_par %>
             </div>
 
         </section>
-
-        <section class="post-round-details">
-
-            <div class="course">
-                <%= post['course_name'].capitalize %>
-            </div>
-
-            <div class="score">
-                <%= post['user_total_score'] %>
-            </div>
-
-            <div class="par">
-                <%= post['course_par'] %>
-            </div>
-
-        </section>
-
     </article>
-
     <% end %>
-
 </section>
-
-  <% end %>
+<% end %>

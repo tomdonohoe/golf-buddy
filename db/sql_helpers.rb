@@ -27,7 +27,8 @@ def get_all_rounds_by_user_id user_id
           FROM rounds as r
           LEFT JOIN courses as c
             ON r.course_id = c.id
-         WHERE user_id = $1;
+         WHERE user_id = $1
+         ORDER BY date DESC;
     }
     run_sql query, [user_id]
 end
