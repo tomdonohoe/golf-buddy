@@ -4,6 +4,8 @@ View the website: https://golfbuddy.herokuapp.com/.
 
 Golf buddy is a web app that lets you keep track of your scorecards, follow friends scores and analyses your performance.
 
+See wireframes and db schema planning here: https://github.com/tomdonohoe/golf-buddy/tree/master/plans
+
 ![Golf Buddy Logo](/public/images/golf-buddy-logo.png)
 
 ## Features
