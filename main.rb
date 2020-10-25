@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
+require 'chartkick'
 require_relative 'db/sql_helpers.rb'
 require_relative 'utils/auth.rb'
 require_relative 'utils/helpers.rb'
@@ -25,6 +26,7 @@ end
 
 get '/user/:id' do
   user = current_user_details
+  chart_data_round_date_score = get_chart_data_total_score_date params['id']
   avg_score = avg_total_score_by_user_id user['id']
   min_score = min_total_score_by_user_id user['id']
   avg_score_per_course = avg_total_score_per_course_by_user_id user['id']
@@ -32,11 +34,12 @@ get '/user/:id' do
 
   erb :user_profile, locals: {
     user: user,
+    chart_data_round_date_score: chart_data_round_date_score,
     avg_score: avg_score['avg_total_score'],
     min_score: min_score['min_total_score'],
     avg_score_per_course: avg_score_per_course,
     avg_score_per_par: avg_score_per_par
-  }
+  }, :layout => :user_profile_layout
 end
 
 

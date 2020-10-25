@@ -33,6 +33,20 @@ def get_all_rounds_by_user_id user_id
 end
 
 
+def chart__get_round_date_and_score_by_user_id user_id
+    query = %{
+        SELECT r.created_at AS date,
+               r.total_score
+          FROM rounds as r
+          LEFT JOIN courses as c
+            ON r.course_id = c.id
+         WHERE user_id = $1;
+    }
+    result = run_sql query, [user_id]
+    result
+end
+
+
 def get_round_by_user_id_round_id user_id, round_id
     query = %{
         SELECT r.id AS round_id,

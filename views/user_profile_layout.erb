@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Golf Buddy</title>
+  <link rel='stylesheet' href='/css/style.css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="grid">
+
+  <header>
+
+    <div class="logo">
+      <a href="/">
+        <img src="/images/golf-buddy-logo.png" alt="">
+      </a>
+    </div>
+
+    <nav class="menu">
+      <% if logged_in? %>
+        <a href="/user/<%= current_user_details['id'] %>">
+          profile
+        </a>
+        <form action="/session" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button>logout</button>
+        </form>
+      <% else %>
+        <a href="/user/new">signup</a>
+        <a href="/session/new">login</a>
+      <% end %>
+    </nav>
+
+  </header>
+    <main>
+    <script src="/js/Chart.bundle.js"></script>
+    <script src="/js/chartkick.js"></script>
+      <%= yield %>
+    </main>
+  </div>
+</body>
+</html>

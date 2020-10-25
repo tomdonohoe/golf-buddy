@@ -14,6 +14,7 @@
     <h2>Round statistics</h2>
 
     <p><%= user['username'].capitalize %>, based on your saved rounds you average <%= avg_score %> shots per round with a personal best of <%= min_score %>!</p>
+    <%= line_chart chart_data_round_date_score, label: "Shots", min: 0, max: 140, colors: ["#06D6A0"]%>
 
     <ul>
         <li>Avg score by course:
@@ -41,3 +42,4 @@
         </form>
     </section>
 </section>
+
