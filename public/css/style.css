@@ -169,6 +169,49 @@ header {
     padding: 3px;
 }
 
+/* Scorecard v2 */
+.scorecard-v2 {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.scorecard-grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.scorecard-row {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+}
+
+.scorecard-label {
+    display: grid;
+    text-align: center;
+    align-items: center;
+}
+
+.scorecard-data {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.scorecard-data-item {
+    padding: 8px;
+    /* border: 1px solid #ddd; */ 
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ddd;
+}
+
+.par {
+    border: 1px solid #06D6A0;
+    border-radius: 50%;
+    margin: 5px;
+}
+
 /*  Posts  */
 .post {
     display: grid;
@@ -229,6 +272,7 @@ header {
 
 .blue-bgc {
     background-color: #118AB2;
+    color: #fff;
 }
 
 .midnight {
@@ -237,4 +281,5 @@ header {
 
 .midnight-bgc {
     background-color: #073B4C;
+    color: #fff;
 }

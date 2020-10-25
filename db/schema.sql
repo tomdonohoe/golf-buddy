@@ -60,3 +60,19 @@ RETURNS TABLE (id int, user_id int, username text, round_date date, course_name 
 $func$
 SELECT * FROM posts WHERE user_id = ANY($1);
 $func$ LANGUAGE sql;
+
+
+
+SELECT SUM(h.par) AS front_9_par
+  FROM courses AS c
+  LEFT JOIN holes AS h
+    ON c.id = h.course_id
+ WHERE c.id = 1
+   AND h.number BETWEEN 1 AND 9;
+
+SELECT SUM(h.par) AS back_9_par
+  FROM courses AS c
+  LEFT JOIN holes AS h
+    ON c.id = h.course_id
+ WHERE c.id = 1
+   AND h.number BETWEEN 10 AND 18;

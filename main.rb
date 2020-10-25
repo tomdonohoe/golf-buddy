@@ -171,6 +171,7 @@ end
 post '/holes' do
   course_id = params['course_id']
   create_18_new_holes params, course_id
+  calculate_front_and_back_course_par course_id
   redirect "/course?course_id=#{course_id}"
 end
 
@@ -216,6 +217,7 @@ delete '/friends' do
   delete_friend user['id'], params['friend_id']
   redirect back
 end
+
 
 get '/posts/:user_id' do
   posts = find_all_posts_by_user_id params['user_id']

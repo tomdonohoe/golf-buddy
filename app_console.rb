@@ -3,8 +3,8 @@ require 'pry'
 require_relative 'db/sql_helpers.rb'
 require_relative 'utils/auth.rb'
 
-course = find_course_by_name "port kembla"
-p course.nil?
-
+[1, 2, 3].each do |i|
+    calculate_front_and_back_course_par i
+end
 
 binding.pry

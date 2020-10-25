@@ -38,10 +38,14 @@ def get_round_by_user_id_round_id user_id, round_id
         SELECT r.id AS round_id,
                r.created_at AS date,
                r.total_score,
+               r.front_9_total_score,
+               r.back_9_total_score,
                r.user_id,
                r.course_id,
                c.name AS course_name,
                c.par AS course_par,
+               c.front_9_par,
+               c.back_9_par,
                c.num_holes,
                h.number AS hole_number,
                h.par AS hole_par,
@@ -257,11 +261,34 @@ end
 
 
 def add_total_score_to_round round_id
+    total_score_front_9 = %{
+        SELECT SUM(s.score) AS front_9_total
+          FROM scores AS s
+          LEFT JOIN holes AS h
+            ON s.hole_id = h.id
+         WHERE s.round_id = $1
+           AND h.number BETWEEN 1 AND 9;
+    }
+    front_9_score = run_sql total_score_front_9, [round_id]
+    front_9_query = "UPDATE rounds SET front_9_total_score = $1 WHERE id = $2"
+    run_sql front_9_query, [front_9_score[0]['front_9_total'], round_id]
+
+    total_score_back_9 = %{
+        SELECT SUM(s.score) AS back_9_total
+          FROM scores AS s
+          LEFT JOIN holes AS h
+            ON s.hole_id = h.id
+         WHERE s.round_id = $1
+           AND h.number BETWEEN 10 AND 18;
+    }
+    back_9_score = run_sql total_score_back_9, [round_id]
+    back_9_query = "UPDATE rounds SET back_9_total_score = $1 WHERE id = $2"
+    run_sql back_9_query, [back_9_score[0]['back_9_total'], round_id]
+
     total_score_query = "SELECT SUM(score) as total FROM scores WHERE round_id = $1"
     total_score = run_sql total_score_query, [round_id]
-
-    query = "UPDATE rounds SET total_score = $1 WHERE id = $2"
-    run_sql query, [total_score[0]['total'], round_id]
+    total_query = "UPDATE rounds SET total_score = $1 WHERE id = $2"
+    run_sql total_query, [total_score[0]['total'], round_id]
 end
 
 
@@ -316,3 +343,30 @@ def avg_score_per_hole_par_by_user_id id
     }
     run_sql query, [id]
 end  
+
+
+def calculate_front_and_back_course_par course_id
+    front_9_query = %{
+        SELECT SUM(h.par) AS front_9_par
+          FROM courses AS c
+          LEFT JOIN holes AS h
+            ON c.id = h.course_id
+         WHERE c.id = $1
+           AND h.number BETWEEN 1 AND 9;       
+    }
+    front_9_par_result = run_sql front_9_query, [course_id]
+    front_9_par = front_9_par_result.first['front_9_par']
+    run_sql "UPDATE courses SET front_9_par = $1 WHERE id = $2", [front_9_par, course_id]
+
+    back_9_query = %{
+        SELECT SUM(h.par) AS back_9_par
+          FROM courses AS c
+          LEFT JOIN holes AS h
+            ON c.id = h.course_id
+         WHERE c.id = $1
+           AND h.number BETWEEN 10 AND 18;
+    }
+    back_9_par_result = run_sql back_9_query, [course_id]
+    back_9_par = back_9_par_result.first['back_9_par']
+    run_sql "UPDATE courses SET back_9_par = $1 WHERE id = $2", [back_9_par, course_id]
+end
