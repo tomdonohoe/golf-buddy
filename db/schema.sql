@@ -48,31 +48,59 @@ CREATE TABLE friends (
 CREATE TABLE posts (
      id SERIAL PRIMARY KEY,
      user_id INTEGER,
-     username TEXT,
-     round_date DATE,
-     course_name TEXT,
-     course_par INTEGER,
-     user_total_score INTEGER
+     round_id INTEGER
 );
 
 CREATE OR REPLACE FUNCTION multiple_users_ids(VARIADIC int[])
-RETURNS TABLE (id int, user_id int, username text, round_date date, course_name text, course_par int, user_total_score int) AS
+RETURNS TABLE (user_id int, round_id int, username text, round_date date, course_name text, course_par int, total_score int) AS
 $func$
-SELECT * FROM posts WHERE user_id = ANY($1);
+SELECT p.user_id,
+        p.round_id,
+        u.username,
+        r.created_at AS round_date,
+        c.name AS course_name,
+        c.par AS course_par,
+        r.total_score AS user_total_score
+  FROM posts AS p
+  LEFT JOIN users AS u
+    ON p.user_id = u.id
+  LEFT JOIN rounds AS r
+    ON p.round_id = r.id
+  LEFT JOIN courses AS c
+    ON r.course_id = c.id
+  WHERE p.user_id = ANY($1);
 $func$ LANGUAGE sql;
 
 
 
-SELECT SUM(h.par) AS front_9_par
-  FROM courses AS c
-  LEFT JOIN holes AS h
-    ON c.id = h.course_id
- WHERE c.id = 1
-   AND h.number BETWEEN 1 AND 9;
+SELECT p.user_id,
+        p.round_id,
+        u.username,
+        r.created_at AS round_date,
+        c.name AS course_name,
+        c.par AS course_par,
+        r.total_score AS user_total_score
+  FROM posts AS p
+  LEFT JOIN users AS u
+    ON p.user_id = u.id
+  LEFT JOIN rounds AS r
+    ON p.round_id = r.id
+  LEFT JOIN courses AS c
+    ON r.course_id = c.id
+  WHERE user_id = $1;
 
-SELECT SUM(h.par) AS back_9_par
-  FROM courses AS c
-  LEFT JOIN holes AS h
-    ON c.id = h.course_id
- WHERE c.id = 1
-   AND h.number BETWEEN 10 AND 18;
+SELECT p.user_id,
+       p.round_id,
+       u.username,
+       r.created_at AS round_date,
+       c.name AS course_name,
+       c.par AS course_par,
+       r.total_score AS user_total_score
+  FROM posts AS p
+  LEFT JOIN users AS u
+    ON p.user_id = u.id
+  LEFT JOIN rounds AS r
+    ON p.round_id = r.id
+  LEFT JOIN courses AS c
+    ON r.course_id = c.id
+

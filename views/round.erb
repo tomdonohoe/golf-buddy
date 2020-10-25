@@ -144,11 +144,8 @@
 
 <section class="scorecard-options center-with-grid">
 
-    <form action="/posts?user_id=<%= user['id'] %>&username=<%= user['username']%>" method="post">
-        <input type="hidden" name="round_date" value="<%= round_details.first['date'] %>">
-        <input type="hidden" name="course_name" value="<%= round_details.first['course_name'] %>">
-        <input type="hidden" name="course_par" value="<%= round_details.first['course_par'] %>">
-        <input type="hidden" name="user_total_score" value="<%= round_details.first['total_score'] %>">
+    <form action="/posts?user_id=<%= user['id'] %>" method="post">
+        <input type="hidden" name="round_id" value="<%= round_details.first['round_id'] %>">
         <button class="btn">share</button>
     </form>
 

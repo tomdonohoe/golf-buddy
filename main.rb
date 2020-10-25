@@ -13,6 +13,7 @@ get '/' do
   user = current_user_details
   if logged_in?
     posts = get_all_posts_of_users_friends
+    # raise posts.to_a.to_s
   end
 
   erb :index, locals: {user: user, posts: posts}
@@ -229,13 +230,9 @@ end
 
 post '/posts' do
   user_id = params['user_id']
-  username = params['username']
-  round_date = params['round_date']
-  course_name = params['course_name']
-  course_par = params['course_par']
-  user_total_score = params['user_total_score']
+  round_id = params['round_id']
 
-  create_new_post user_id, username, round_date, course_name, course_par, user_total_score
+  create_new_post user_id, round_id
 
   redirect "/user/#{user_id}"
 end

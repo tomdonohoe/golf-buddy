@@ -15,7 +15,7 @@
             </div>
         </section>
         <section class="post-details-labels">
-            <% score_diff_par = post['user_total_score'].to_i - post['course_par'].to_i %>
+            <% score_diff_par = post['total_score'].to_i - post['course_par'].to_i %>
             <div class="post-details-label">Course</div>
             <div class="post-details-label">Score</div>
             <div class="post-details-label">Par</div>
@@ -23,12 +23,12 @@
         
         </section>
         <section class="post-details-data">
-            <% score_diff_par = post['user_total_score'].to_i - post['course_par'].to_i %>
+            <% score_diff_par = post['total_score'].to_i - post['course_par'].to_i %>
             <div class="post-details-data-point">
             <%= post['course_name'].capitalize %>
             </div>
             <div class="post-details-data-point">
-            <%= post['user_total_score'] %>
+            <%= post['total_score'] %>
             </div>
             <div class="post-details-data-point">
             <%= post['course_par'] %>

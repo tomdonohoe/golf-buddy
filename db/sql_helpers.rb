@@ -121,26 +121,18 @@ def create_friend logged_in_user_id, friend_user_id
 end
 
 
-def create_new_post user_id, username, round_date, course_name, course_par, user_total_score
+def create_new_post user_id, round_id
     query = %{
         INSERT INTO posts (
             user_id, 
-            username, 
-            round_date, 
-            course_name, 
-            course_par, 
-            user_total_score
+            round_id
         )
         VALUES (
             $1, 
-            $2, 
-            $3, 
-            $4,
-            $5,
-            $6
+            $2
         );
     }
-    run_sql query, [user_id, username, round_date, course_name, course_par, user_total_score]
+    run_sql query, [user_id, round_id]
 end
 
 
@@ -199,7 +191,23 @@ end
 
 
 def find_all_posts_by_user_id user_id
-    query = "SELECT * FROM posts WHERE user_id = $1;"
+    query = %{
+        SELECT p.user_id,
+               p.round_id,
+               u.username,
+               r.created_at AS round_date,
+               c.name AS course_name,
+               c.par AS course_par,
+               r.total_score AS user_total_score
+          FROM posts AS p
+          LEFT JOIN users AS u
+            ON p.user_id = u.id
+          LEFT JOIN rounds AS r
+            ON p.round_id = r.id
+          LEFT JOIN courses AS c
+            ON r.course_id = c.id
+          WHERE p.user_id = $1;
+    }
     run_sql query, [user_id]
 end
 
